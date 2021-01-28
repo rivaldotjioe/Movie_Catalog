@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Movie Catalog</string>
+    <string name="judul_film">Judul Film</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="Film">Film</string>
+    <string name="Tv">Tv</string>
+    <string name="a_start_is_born">A Start Is Born</string>
+    <string name="desc_a_start_is_born">lorem ipsum sit dolor amet</string>
+
+    <string-array name="title_movie">
+        <item>A Start is Born</item>
+    </string-array>
+
+    <string-array name="desc_movie">
+        <item>lorem ipsum sit dolor amet</item>
+    </string-array>
+
+</resources>
