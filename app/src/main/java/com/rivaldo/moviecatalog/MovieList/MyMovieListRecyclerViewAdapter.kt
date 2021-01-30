@@ -36,6 +36,7 @@ class MyMovieListRecyclerViewAdapter(
             judul.text = item.title
             desc.text = item.desc
             imageMovie.setImageResource(item.image)
+            imageMovie.setTag(item.image)
             itemView.setOnClickListener {
                 interfaceMovieItemClicked.onItemMovieClicked(item)
             }
