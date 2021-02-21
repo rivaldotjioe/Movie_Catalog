@@ -3,10 +3,13 @@ package com.rivaldo.moviecatalog.source
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import com.rivaldo.moviecatalog.source.remote.RemoteDataSource
+import com.rivaldo.moviecatalog.source.remote.response.MovieDetailResponse
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemMoviePopular
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemPopularTv
+import com.rivaldo.moviecatalog.source.remote.response.TvDetailResponse
 import com.rivaldo.moviecatalog.utils.DummyData
 import org.junit.Test
 import org.junit.Assert.*
@@ -29,6 +32,8 @@ class CatalogRepositoryTest {
 
     private val popularmovie = DummyData.generateMovieData()
     private val populartv = DummyData.generateTvData()
+    private val detailmovie = DummyData.generateMovieDetail()
+    private val detailtv = DummyData.generateTvDetail()
 
 
     @Test
@@ -49,5 +54,24 @@ class CatalogRepositoryTest {
         val datatv = catalogRepository.getPopularTv()
         verify(remote).getPopularTv()
         assertEquals(populartv?.size, datatv.value?.size)
+    }
+
+    @Test
+    fun getDetailMovie(){
+        val datadetailmovie = MutableLiveData<MovieDetailResponse>()
+        datadetailmovie.value = detailmovie
+        `when`(remote.getDetailMovie(any())).thenReturn(datadetailmovie)
+        val detailmovie = catalogRepository.getDetailMovie(550)
+        verify(remote).getDetailMovie(550)
+        assertEquals(this.detailmovie.title, detailmovie.value?.title)
+    }
+    @Test
+    fun getDetailTv(){
+        val datadetailtv = MutableLiveData<TvDetailResponse>()
+        datadetailtv.value = detailtv
+        `when`(remote.getDetailTv(any())).thenReturn(datadetailtv)
+        val detailtv = catalogRepository.getDetailTv(550)
+        verify(remote).getDetailTv(550)
+        assertEquals(this.detailtv.name, detailtv.value?.name)
     }
 }

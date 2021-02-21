@@ -1,7 +1,9 @@
 package com.rivaldo.moviecatalog.utils
 
+import com.rivaldo.moviecatalog.source.remote.response.MovieDetailResponse
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemMoviePopular
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemPopularTv
+import com.rivaldo.moviecatalog.source.remote.response.TvDetailResponse
 
 object DummyData {
 
@@ -44,6 +46,75 @@ object DummyData {
                 id = 31917,
                 voteCount = 133))
         return tvdata
+    }
+
+    fun generateMovieDetail(): MovieDetailResponse {
+        var detailmovie = MovieDetailResponse(
+            originalLanguage = "en",
+            imdbId = null,
+            video = null,
+            title = "Fight Club",
+            backdropPath = "/52AfXWuXCHn3UjD17rBruA9f5qb.jpg",
+            revenue = null,
+            genres = listOf(),
+            popularity = 35.427,
+            productionCountries = listOf(),
+            id = null,
+            voteCount = null,
+            budget = null,
+            overview = "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+            originalTitle = null,
+            runtime = null,
+            posterPath = "/8kNruSfhk5IoE4eZOc4UpvDn6tq.jpg",
+            spokenLanguages = listOf(),
+            productionCompanies = listOf(),
+            releaseDate = null,
+            voteAverage = null,
+            belongsToCollection = null,
+            tagline = null,
+            adult = false,
+            homepage = null,
+            status = null
+        )
+        return detailmovie
+    }
+
+    fun generateTvDetail(): TvDetailResponse {
+        var detailtv = TvDetailResponse(
+            originalLanguage = "en",
+            numberOfEpisodes = null,
+            networks = listOf(),
+            type = null,
+            backdropPath = null,
+            genres = listOf(),
+            popularity = 5.041,
+            productionCountries = listOf(),
+            id = null,
+            numberOfSeasons = null,
+            voteCount = null,
+            firstAirDate = null,
+            overview = "Till Death Us Do Part is a ground-breaking British sitcom that aired on BBC1 from 1965 to 1975. First airing as a Comedy Playhouse pilot, the show aired in seven series until 1975. Six years later, ITV continued the sitcom, calling it Till Death.... From 1985 to 1992, the BBC produced a sequel In Sickness and in Health.\n\nCreated by Johnny Speight, Till Death Us Do Part centred on the East End Garnett family, led by patriarch Alf Garnett, a reactionary white working-class man who holds racist and anti-socialist views. His gentle and long-suffering wife Else was played by Dandy Nichols, and his daughter Rita by Una Stubbs. Rita's bright but layabout husband Mike Rawlins is a socialist. The character Alf Garnett became a well known character in British culture, and Mitchell played him on stage and television up until 1998, when Speight died.\n\nIn addition to the spin-off In Sickness and in Health, Till Death Us Do Part was re-made in many countries including Brazil, Germany and the United States.\n\nMany episodes from the first three series are thought to no longer exist, having been wiped in the late 1960s and early '70s as was the policy at the time.",
+            seasons = listOf(),
+            languages = listOf(),
+            createdBy = listOf(),
+            lastEpisodeToAir = null,
+            posterPath = "/5r8enLaWs3SnVoInZYsOLZgboki.jpg",
+            originCountry = listOf(),
+            spokenLanguages = listOf(),
+            productionCompanies = listOf(),
+            originalName = "Till Death Us Do Part",
+            voteAverage = null,
+            name = "Unemployment",
+            tagline = null,
+            episodeRunTime = listOf(),
+            nextEpisodeToAir = null,
+            inProduction = null,
+            lastAirDate = null,
+            homepage = null,
+            status = null
+        )
+
+        return detailtv
     }
 
 

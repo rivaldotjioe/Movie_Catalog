@@ -34,8 +34,8 @@ class MainActivityTest {
     fun setUp() {
         ActivityScenario.launch(MainActivity::class.java)
         IdlingRegistry.getInstance().register(EspressoIdlingResources.espressoTestIdlingResource)
-            dataMovie = remote.testPopularMovie()
-            dataTv = remote.testPopularTv()
+            dataMovie = LiveDataTestUtil.getValue(remote.getPopularMovie())
+            dataTv = LiveDataTestUtil.getValue(remote.getPopularTv())
     }
 
     @After

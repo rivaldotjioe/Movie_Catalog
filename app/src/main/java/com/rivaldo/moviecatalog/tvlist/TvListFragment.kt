@@ -58,8 +58,8 @@ class TvListFragment : Fragment() {
             tvadapter.setInterfaceTvItemClicked(object : TvItemClicked {
                 override fun onTvItemClicked(data: ResultsItemPopularTv) {
                     val intent = Intent(activity, DetailActivity::class.java)
-                    DetailViewModel.setData(data)
                     intent.setType(DetailActivity.TV)
+                    intent.putExtra(DetailActivity.ID, data.id)
                     startActivity(intent)
                 }
             })

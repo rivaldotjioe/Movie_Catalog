@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import com.rivaldo.moviecatalog.source.CatalogRepository
 import com.rivaldo.moviecatalog.source.DataSourceInterface
 import com.rivaldo.moviecatalog.source.remote.RemoteDataSource
+import com.rivaldo.moviecatalog.source.remote.response.MovieDetailResponse
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemMoviePopular
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemPopularTv
+import com.rivaldo.moviecatalog.source.remote.response.TvDetailResponse
 
 class FakeCatalogRepository(private val remoteDataSource: RemoteDataSource) :
     DataSourceInterface {
@@ -20,6 +22,15 @@ class FakeCatalogRepository(private val remoteDataSource: RemoteDataSource) :
         return tv
     }
 
+    override fun getDetailMovie(id: Int): LiveData<MovieDetailResponse> {
+       val moviedetail = remoteDataSource.getDetailMovie(id)
+        return moviedetail
+    }
+
+    override fun getDetailTv(id: Int): LiveData<TvDetailResponse> {
+       val tvdetail = remoteDataSource.getDetailTv(id)
+        return tvdetail
+    }
 
 
 }

@@ -3,6 +3,7 @@ package com.rivaldo.moviecatalog.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.rivaldo.moviecatalog.detail.DetailViewModel
 import com.rivaldo.moviecatalog.injection.Injection
 import com.rivaldo.moviecatalog.movielist.MovieViewModel
 import com.rivaldo.moviecatalog.source.CatalogRepository
@@ -32,6 +33,10 @@ class ViewModelFactory private constructor(private val catalogRepository: Catalo
 
             modelClass.isAssignableFrom(TvViewModel::class.java) -> {
                 return TvViewModel(catalogRepository) as T
+            }
+
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                return DetailViewModel(catalogRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -65,8 +65,8 @@ class MovieListFragment : Fragment() {
             movieadapter.setInterfaceItemClicked(object : MovieItemClicked{
                 override fun onItemMovieClicked(data: ResultsItemMoviePopular) {
                     val intent = Intent(activity, DetailActivity::class.java)
-                    DetailViewModel.setData(data)
                     intent.setType(DetailActivity.MOVIE)
+                    intent.putExtra(DetailActivity.ID, data.id)
                     startActivity(intent)
                 }
             })
