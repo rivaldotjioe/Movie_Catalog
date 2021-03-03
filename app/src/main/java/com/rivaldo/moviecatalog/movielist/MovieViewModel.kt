@@ -1,19 +1,10 @@
 package com.rivaldo.moviecatalog.movielist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rivaldo.moviecatalog.data.Movie
 import com.rivaldo.moviecatalog.source.CatalogRepository
-import com.rivaldo.moviecatalog.source.remote.ApiConfig
-import com.rivaldo.moviecatalog.source.remote.response.ResponseMoviePopular
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemMoviePopular
-import com.rivaldo.moviecatalog.utils.LiveDataTestUtil
-import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @Suppress("UNCHECKED_CAST")
 class MovieViewModel(private val catalogRepository: CatalogRepository) : ViewModel() {

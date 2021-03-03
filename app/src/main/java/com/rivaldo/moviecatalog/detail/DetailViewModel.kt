@@ -3,6 +3,7 @@ package com.rivaldo.moviecatalog.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.rivaldo.moviecatalog.database.Movie
 import com.rivaldo.moviecatalog.source.CatalogRepository
 import com.rivaldo.moviecatalog.source.remote.response.MovieDetailResponse
 import com.rivaldo.moviecatalog.source.remote.response.TvDetailResponse
@@ -33,5 +34,13 @@ class DetailViewModel(private val catalogRepository: CatalogRepository) : ViewMo
 
     fun getData() : Any{
         return detailData
+    }
+
+    fun insertFavoriteMovie(movie: Movie) {
+        catalogRepository.insertFavoriteMovie(movie)
+    }
+
+    fun checkFavoriteMovie(id: Int) : Boolean {
+        return catalogRepository.checkFavoriteMovie(id)
     }
 }

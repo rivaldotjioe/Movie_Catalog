@@ -8,17 +8,12 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
-import com.rivaldo.moviecatalog.movielist.MovieData
 import com.rivaldo.moviecatalog.R
-import com.rivaldo.moviecatalog.source.remote.RemoteDataSource
+import com.rivaldo.moviecatalog.source.remote.response.RemoteDataSource
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemMoviePopular
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemPopularTv
-import com.rivaldo.moviecatalog.tvlist.TvData
 import com.rivaldo.moviecatalog.utils.EspressoIdlingResources
 import com.rivaldo.moviecatalog.utils.LiveDataTestUtil
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.junit.After
 import org.junit.Before
 

@@ -4,13 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.any
-import com.rivaldo.moviecatalog.movielist.MovieData
 import com.rivaldo.moviecatalog.source.CatalogRepository
 import com.rivaldo.moviecatalog.source.remote.response.MovieDetailResponse
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemMoviePopular
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemPopularTv
 import com.rivaldo.moviecatalog.source.remote.response.TvDetailResponse
-import com.rivaldo.moviecatalog.tvlist.TvData
 import com.rivaldo.moviecatalog.utils.DummyData
 import org.junit.Test
 

@@ -1,11 +1,10 @@
 package com.rivaldo.moviecatalog.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
-import com.rivaldo.moviecatalog.source.remote.RemoteDataSource
+import com.rivaldo.moviecatalog.source.remote.response.RemoteDataSource
 import com.rivaldo.moviecatalog.source.remote.response.MovieDetailResponse
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemMoviePopular
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemPopularTv
@@ -13,7 +12,6 @@ import com.rivaldo.moviecatalog.source.remote.response.TvDetailResponse
 import com.rivaldo.moviecatalog.utils.DummyData
 import org.junit.Test
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.mockito.Mockito

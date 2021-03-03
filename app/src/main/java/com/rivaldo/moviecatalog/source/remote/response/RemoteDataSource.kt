@@ -1,9 +1,9 @@
-package com.rivaldo.moviecatalog.source.remote
+package com.rivaldo.moviecatalog.source.remote.response
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.rivaldo.moviecatalog.source.remote.response.*
+import com.rivaldo.moviecatalog.source.remote.ApiConfig
 import com.rivaldo.moviecatalog.utils.EspressoIdlingResources
 import com.rivaldo.moviecatalog.utils.LiveDataTestUtil
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +46,7 @@ class RemoteDataSource {
 
     fun testPopularMovie(): List<ResultsItemMoviePopular> {
         GlobalScope.launch(context = Dispatchers.IO) {
-            val client = ApiConfig.getApiService().getPopularMovie(RemoteDataSource.API)
+            val client = ApiConfig.getApiService().getPopularMovie(API)
             client.enqueue(object : Callback<ResponseMoviePopular> {
                 override fun onResponse(
                     call: Call<ResponseMoviePopular>,
@@ -55,12 +55,12 @@ class RemoteDataSource {
                     if (response.isSuccessful) {
                         _moviepopular.value =  response.body()!!.results as List<ResultsItemMoviePopular>
                     } else {
-                        Log.e(RemoteDataSource.TAG, "onFailure :  ${response.message()}")
+                        Log.e(TAG, "onFailure :  ${response.message()}")
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseMoviePopular>, t: Throwable) {
-                    Log.e(RemoteDataSource.TAG, "onFailure: ${t.message.toString()}")
+                    Log.e(TAG, "onFailure: ${t.message.toString()}")
                 }
             })
 
@@ -71,7 +71,7 @@ class RemoteDataSource {
 
         fun testPopularTv() : List<ResultsItemPopularTv> {
             GlobalScope.launch(context = Dispatchers.Default) {
-                val client = ApiConfig.getApiService().getPopularTv(RemoteDataSource.API)
+                val client = ApiConfig.getApiService().getPopularTv(API)
                 client.enqueue(object : Callback<ResponseTvPopular>{
                     override fun onResponse(
                         call: Call<ResponseTvPopular>,
@@ -81,12 +81,12 @@ class RemoteDataSource {
                         if (response.isSuccessful) {
                             _tvpopular.value = response.body()?.results as List<ResultsItemPopularTv>
                         } else {
-                            Log.e(RemoteDataSource.TAG, " onFailure : ${response.message()}")
+                            Log.e(TAG, " onFailure : ${response.message()}")
                         }
                     }
 
                     override fun onFailure(call: Call<ResponseTvPopular>, t: Throwable) {
-                        Log.e(RemoteDataSource.TAG, "onFailure: ${t.message.toString()}")
+                        Log.e(TAG, "onFailure: ${t.message.toString()}")
                     }
                 })
             }
@@ -97,7 +97,7 @@ class RemoteDataSource {
     fun getPopularTv(): LiveData<List<ResultsItemPopularTv>> {
         EspressoIdlingResources.increment()
         GlobalScope.launch(context = Dispatchers.Default) {
-            val client = ApiConfig.getApiService().getPopularTv(RemoteDataSource.API)
+            val client = ApiConfig.getApiService().getPopularTv(API)
             client.enqueue(object : Callback<ResponseTvPopular>{
                 override fun onResponse(
                     call: Call<ResponseTvPopular>,
@@ -107,12 +107,12 @@ class RemoteDataSource {
                     if (response.isSuccessful) {
                         _tvpopular.value = response.body()?.results as List<ResultsItemPopularTv>
                     } else {
-                        Log.e(RemoteDataSource.TAG, " onFailure : ${response.message()}")
+                        Log.e(TAG, " onFailure : ${response.message()}")
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseTvPopular>, t: Throwable) {
-                    Log.e(RemoteDataSource.TAG, "onFailure: ${t.message.toString()}")
+                    Log.e(TAG, "onFailure: ${t.message.toString()}")
                 }
             })
         }
@@ -123,7 +123,7 @@ class RemoteDataSource {
     fun getPopularMovie(): LiveData<List<ResultsItemMoviePopular>> {
         EspressoIdlingResources.increment()
         GlobalScope.launch(context = Dispatchers.IO) {
-            val client = ApiConfig.getApiService().getPopularMovie(RemoteDataSource.API)
+            val client = ApiConfig.getApiService().getPopularMovie(API)
             client.enqueue(object : Callback<ResponseMoviePopular> {
                 override fun onResponse(
                     call: Call<ResponseMoviePopular>,
@@ -132,12 +132,12 @@ class RemoteDataSource {
                     if (response.isSuccessful) {
                    _moviepopular.value =  response.body()?.results as List<ResultsItemMoviePopular>
                     } else {
-                        Log.e(RemoteDataSource.TAG, "onFailure :  ${response.message()}")
+                        Log.e(TAG, "onFailure :  ${response.message()}")
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseMoviePopular>, t: Throwable) {
-                    Log.e(RemoteDataSource.TAG, "onFailure: ${t.message.toString()}")
+                    Log.e(TAG, "onFailure: ${t.message.toString()}")
                 }
             })
 
@@ -150,18 +150,18 @@ class RemoteDataSource {
     fun getDetailMovie(id: Int) : LiveData<MovieDetailResponse> {
         EspressoIdlingResources.increment()
         GlobalScope.launch(context = Dispatchers.IO) {
-            val client = ApiConfig.getApiService().getMovieDetail(id,RemoteDataSource.API)
+            val client = ApiConfig.getApiService().getMovieDetail(id, API)
             client.enqueue(object : Callback<MovieDetailResponse> {
                 override fun onResponse(call: Call<MovieDetailResponse>, response: Response<MovieDetailResponse>) {
                     if (response.isSuccessful) {
                         _movieDetail.value = response.body()
                     } else {
-                        Log.e(RemoteDataSource.TAG, "onFailure : ${response.message()}")
+                        Log.e(TAG, "onFailure : ${response.message()}")
                     }
                 }
 
                 override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
-                    Log.e(RemoteDataSource.TAG, "onFailure : ${t.message.toString()}")
+                    Log.e(TAG, "onFailure : ${t.message.toString()}")
                 }
             })
         }
@@ -172,7 +172,7 @@ class RemoteDataSource {
     fun getDetailTv(id: Int) : LiveData<TvDetailResponse> {
         EspressoIdlingResources.increment()
         GlobalScope.launch(context = Dispatchers.IO) {
-            val client = ApiConfig.getApiService().getTvDetail(id, RemoteDataSource.API)
+            val client = ApiConfig.getApiService().getTvDetail(id, API)
             client.enqueue(object  : Callback<TvDetailResponse> {
                 override fun onResponse(
                     call: Call<TvDetailResponse>,
@@ -181,12 +181,12 @@ class RemoteDataSource {
                     if (response.isSuccessful) {
                         _tvDetail.value = response.body()
                     } else {
-                        Log.e(RemoteDataSource.TAG, "onFailure Response : ${response.message()}")
+                        Log.e(TAG, "onFailure Response : ${response.message()}")
                     }
                 }
 
                 override fun onFailure(call: Call<TvDetailResponse>, t: Throwable) {
-                    Log.e(RemoteDataSource.TAG, "onFailure : ${t.message.toString()}")
+                    Log.e(TAG, "onFailure : ${t.message.toString()}")
                 }
             })
         }
