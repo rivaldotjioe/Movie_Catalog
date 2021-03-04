@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.rivaldo.moviecatalog.R
-import com.rivaldo.moviecatalog.data.Tv
+import com.rivaldo.moviecatalog.database.Tv
 import com.rivaldo.moviecatalog.database.Movie
 import com.rivaldo.moviecatalog.databinding.ActivityDetailBinding
+import com.rivaldo.moviecatalog.utils.EspressoIdlingResources
 import com.rivaldo.moviecatalog.viewmodel.ViewModelFactory
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
@@ -41,17 +41,26 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         if (intent.type == MOVIE){
             val id = intent.getIntExtra(ID,0)
-            detailViewModel.getDetailMovie(id)
+            EspressoIdlingResources.increment()
+                detailViewModel.getDetailMovie(id)
+            EspressoIdlingResources.decrement()
+            EspressoIdlingResources.increment()
          GlobalScope.launch(Dispatchers.IO){
-             val state = async {  checkFavoriteState(id) }
+             val state = async {  checkFavoriteState(id, MOVIE) }
              Log.e("DetailActivity", state.await().toString())
              stateFavorite = state.await()
          }
-
+            EspressoIdlingResources.decrement()
         } else if (intent.type == TV) {
             val id = intent.getIntExtra(ID, 0)
             detailViewModel.getDetailTv(id)
-            setCheckedFavoriteState(detailViewModel.checkFavoriteMovie(id))
+            EspressoIdlingResources.increment()
+            GlobalScope.launch(Dispatchers.IO) {
+                val state = async { checkFavoriteState(id, TV) }
+                Log.e("DetailActivity TV", state.await().toString())
+                stateFavorite = state.await()
+            }
+            EspressoIdlingResources.decrement()
         }
 
         if (intent.type == MOVIE){
@@ -60,12 +69,15 @@ class DetailActivity : AppCompatActivity() {
             binding.DescDetail.text = movie_obtained.overview
             Picasso.get().load("https://image.tmdb.org/t/p/w500/"+movie_obtained.posterPath).into(binding.imageDetail)
                 this.movie = Movie(movie_obtained.id!!, movie_obtained.title!!, movie_obtained.overview!!, movie_obtained.posterPath.toString())
+                currentType = MOVIE
             })
         } else if (intent.type == TV) {
             detailViewModel.detailtv?.observe(this, { tv_obtained ->
             binding.judulItemDetail.text = tv_obtained.name
             binding.DescDetail.text = tv_obtained.overview
             Picasso.get().load("https://image.tmdb.org/t/p/w500/"+tv_obtained.posterPath).into(binding.imageDetail)
+                this.tv = Tv(id = tv_obtained.id!!, name = tv_obtained.name!!, desc = tv_obtained.overview!!, image = tv_obtained.posterPath.toString())
+                currentType = TV
             })
         }
 
@@ -83,15 +95,27 @@ class DetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.add_favorite -> {
-                detailViewModel.insertFavoriteMovie(this.movie)
-                setCheckedFavoriteState(true)
+                if (currentType == MOVIE) {
+                    detailViewModel.insertFavoriteMovie(this.movie)
+                    setCheckedFavoriteState(true)
+                } else if (currentType == TV) {
+                    detailViewModel.insertFavoriteTv(this.tv)
+                    setCheckedFavoriteState(true)
+                }
+
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    fun checkFavoriteState(id: Int) : Boolean {
-        return detailViewModel.checkFavoriteMovie(id)
+    fun checkFavoriteState(id: Int, type: String) : Boolean {
+        var state = false
+        if (type == MOVIE) {
+            state = detailViewModel.checkFavoriteMovie(id)
+        } else if (type == TV) {
+            state =  detailViewModel.checkFavoriteTv(id)
+        }
+        return state
     }
 
     private fun setCheckedFavoriteState(state: Boolean?) {

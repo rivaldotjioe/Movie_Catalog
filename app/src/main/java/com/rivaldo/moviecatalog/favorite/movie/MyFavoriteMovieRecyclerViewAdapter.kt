@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import com.rivaldo.moviecatalog.R
 import com.rivaldo.moviecatalog.database.Movie
 
@@ -18,9 +20,19 @@ import com.squareup.picasso.Picasso
  * [RecyclerView.Adapter] that can display a [DummyItem].
  * TODO: Replace the implementation with code for your data type.
  */
-class MyFavoriteMovieRecyclerViewAdapter(
-    private val values: List<Movie>
-) : RecyclerView.Adapter<MyFavoriteMovieRecyclerViewAdapter.ViewHolder>() {
+class MyFavoriteMovieRecyclerViewAdapter: PagedListAdapter<Movie, MyFavoriteMovieRecyclerViewAdapter.ViewHolder>(DIFF_CALLBACK){
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>(){
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
+    }
 
     private lateinit var interfaceItemClicked : FavoriteItemClicked
 
@@ -34,14 +46,14 @@ class MyFavoriteMovieRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.judul.text = item.title
-        holder.desc.text = item.desc
-        Picasso.get().load("https://image.tmdb.org/t/p/w500/"+item.image).into(holder.imageMovie)
-        holder.buttondelete.setOnClickListener { interfaceItemClicked.onMovieDeleteClicked(movie = item) }
+        val item = getItem(position)
+        holder.judul.text = item?.title
+        holder.desc.text = item?.desc
+        Picasso.get().load("https://image.tmdb.org/t/p/w500/"+item?.image).into(holder.imageMovie)
+        holder.buttondelete.setOnClickListener { interfaceItemClicked.onMovieDeleteClicked(movie = item!!) }
     }
 
-    override fun getItemCount(): Int = values.size
+
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageMovie: ImageView = view.findViewById(R.id.imagemovie)

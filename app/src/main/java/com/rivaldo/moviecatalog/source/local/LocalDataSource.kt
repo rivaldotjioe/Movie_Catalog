@@ -3,8 +3,10 @@ package com.rivaldo.moviecatalog.source.local
 import androidx.lifecycle.LiveData
 import com.rivaldo.moviecatalog.database.Movie
 import com.rivaldo.moviecatalog.source.local.room.CatalogDao
+import androidx.paging.DataSource
+import com.rivaldo.moviecatalog.database.Tv
 
-class LocalDataSource private constructor(private val mCatalogDao: CatalogDao) {
+class LocalDataSource(private val mCatalogDao: CatalogDao) {
 
     companion object {
         private var INSTANCE: LocalDataSource? = null
@@ -13,7 +15,13 @@ class LocalDataSource private constructor(private val mCatalogDao: CatalogDao) {
             INSTANCE ?: LocalDataSource(catalogDao)
     }
 
-    fun getFavoriteMovie(): LiveData<List<Movie>> = mCatalogDao.getFavoriteMovie()
+    fun getFavoriteMovie(): DataSource.Factory<Int, Movie> = mCatalogDao.getFavoriteMovie()
+
+    fun getFavoriteTv(): DataSource.Factory<Int, Tv> = mCatalogDao.getFavoriteTv()
+
+    fun insertFavoriteTv(tv: Tv) {
+        mCatalogDao.insertFavoriteTv(tv)
+    }
 
     fun insertFavoriteMovie(movie: Movie){
         mCatalogDao.insertFavoriteMovie(movie)
@@ -23,7 +31,16 @@ class LocalDataSource private constructor(private val mCatalogDao: CatalogDao) {
         return mCatalogDao.checkFavoriteMovie(id)
     }
 
+    fun checkFavoriteTv(id: Int) : Boolean {
+        return mCatalogDao.checkFavoriteTv(id)
+    }
+
+
     fun deleteFavoriteMovie(movie: Movie) {
         mCatalogDao.deleteFavoriteMovie(movie)
+    }
+
+    fun deleteFavoriteTv(tv: Tv) {
+        mCatalogDao.deleteFavoriteTv(tv)
     }
 }

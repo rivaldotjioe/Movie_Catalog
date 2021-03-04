@@ -7,6 +7,8 @@ import com.rivaldo.moviecatalog.source.remote.response.TvDetailResponse
 
 object DummyData {
 
+
+
     fun generateMovieData() : MutableList<ResultsItemMoviePopular>? {
         var moviedata : MutableList<ResultsItemMoviePopular>? = mutableListOf()
         moviedata?.add(0, ResultsItemMoviePopular(overview = "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",

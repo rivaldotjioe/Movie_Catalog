@@ -5,8 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.rivaldo.moviecatalog.database.Movie
+import com.rivaldo.moviecatalog.database.Tv
 
-@Database(entities = [Movie::class],
+@Database(entities = [Movie::class, Tv::class],
     version = 1,
     exportSchema = false
 )

@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.rivaldo.moviecatalog.R
 import com.rivaldo.moviecatalog.database.Movie
+import com.rivaldo.moviecatalog.database.Tv
 import com.rivaldo.moviecatalog.databinding.FragmentFavoriteMovieBinding
+import com.rivaldo.moviecatalog.databinding.FragmentItemFavoriteMovieBinding
 import com.rivaldo.moviecatalog.databinding.FragmentMovieListBinding
 import com.rivaldo.moviecatalog.favorite.movie.dummy.DummyContent
 import com.rivaldo.moviecatalog.movielist.MovieViewModel
@@ -30,7 +32,7 @@ class FavoriteMovieFragment : Fragment() {
     private var columnCount = 1
     private lateinit var viewBinding : FragmentFavoriteMovieBinding
     private lateinit var movieViewModel: FavoriteMovieViewModel
-    private var _binding : FragmentMovieListBinding? = null
+    private var _binding : FragmentItemFavoriteMovieBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,13 +47,15 @@ class FavoriteMovieFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMovieListBinding.inflate(inflater, container, false)
+        _binding = FragmentItemFavoriteMovieBinding.inflate(inflater, container, false)
         val view = binding.root
+
         val factory = ViewModelFactory.getInstance(requireActivity())
         movieViewModel = ViewModelProvider(this, factory)[FavoriteMovieViewModel::class.java]
         // Set the adapter
         movieViewModel.getFavoriteMovie()?.observe(this@FavoriteMovieFragment, {
-            var favoritemovieadapter = MyFavoriteMovieRecyclerViewAdapter(it)
+            var favoritemovieadapter = MyFavoriteMovieRecyclerViewAdapter()
+            favoritemovieadapter.submitList(it)
 
         if (view is RecyclerView) {
             with(view) {
@@ -69,6 +73,10 @@ class FavoriteMovieFragment : Fragment() {
                         movieViewModel.deleteFavoriteMovie(movie)
                     }
                     favoritemovieadapter.notifyDataSetChanged()
+                }
+
+                override fun onTvDeleteClicked(tv: Tv) {
+
                 }
             })
         })

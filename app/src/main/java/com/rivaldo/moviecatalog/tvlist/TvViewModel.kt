@@ -1,21 +1,11 @@
 package com.rivaldo.moviecatalog.tvlist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rivaldo.moviecatalog.data.Tv
-import com.rivaldo.moviecatalog.movielist.MovieViewModel
+import com.rivaldo.moviecatalog.database.Tv
 import com.rivaldo.moviecatalog.source.CatalogRepository
-import com.rivaldo.moviecatalog.source.remote.ApiConfig
-import com.rivaldo.moviecatalog.source.remote.response.ResponseTvPopular
 import com.rivaldo.moviecatalog.source.remote.response.ResultsItemPopularTv
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class TvViewModel(private val catalogRepository: CatalogRepository) : ViewModel() {
 
