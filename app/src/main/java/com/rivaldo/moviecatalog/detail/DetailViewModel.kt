@@ -18,7 +18,7 @@ class DetailViewModel(private val catalogRepository: CatalogRepository) : ViewMo
     companion object{
         private lateinit var detailData : Any
 
-        public fun setData(item:Any){
+        fun setData(item:Any){
             this.detailData = item
         }
     }

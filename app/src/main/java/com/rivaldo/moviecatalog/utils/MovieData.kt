@@ -44,7 +44,7 @@ object MovieData {
             "Karena Avengers dan sekutunya terus melindungi dunia dari ancaman yang terlalu besar untuk ditangani oleh seorang pahlawan, bahaya baru telah muncul dari bayangan kosmik: Thanos. Seorang lalim penghujatan intergalaksi, tujuannya adalah untuk mengumpulkan semua enam Batu Infinity, artefak kekuatan yang tak terbayangkan, dan menggunakannya untuk menimbulkan kehendak memutar pada semua realitas. Segala sesuatu yang telah diperjuangkan oleh Avengers telah berkembang hingga saat ini - nasib Bumi dan keberadaannya sendiri tidak pernah lebih pasti."
     )
 
-   public fun generateMovieData(): List<Movie> {
+   fun generateMovieData(): List<Movie> {
         val movies = mutableListOf<Movie>()
         if (titleMovie != null) {
             for (i in titleMovie.indices) {

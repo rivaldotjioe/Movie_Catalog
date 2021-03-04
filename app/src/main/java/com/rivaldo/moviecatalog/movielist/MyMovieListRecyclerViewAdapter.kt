@@ -39,7 +39,7 @@ class MyMovieListRecyclerViewAdapter(
             desc.text = item.overview
             //set image
             Picasso.get().load("https://image.tmdb.org/t/p/w500/"+item.posterPath).into(imageMovie)
-            imageMovie.setTag(item.posterPath)
+            imageMovie.tag = item.posterPath
             itemView.setOnClickListener {
                 interfaceMovieItemClicked.onItemMovieClicked(item)
             }
